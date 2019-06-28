@@ -95,6 +95,9 @@ public class TesseractOrder
 
     /** Language specification. */
     private final String lang;
+    
+    /** OCR engine mode. */
+    private final int engineMode;
 
     /** Desired handling of layout. */
     private final int segMode;
@@ -135,6 +138,9 @@ public class TesseractOrder
         this.keepImage = keepImage;
         this.lang = lang;
         this.segMode = segMode;
+        
+        // Explicitly request legacy OCR engine
+        this.engineMode = OEM_TESSERACT_ONLY;
 
         // Build a PIX from the image provided
         ByteBuffer buf = toTiffBuffer(bufferedImage);
@@ -164,9 +170,11 @@ public class TesseractOrder
         try {
             final Path ocrFolder = TesseractOCR.getInstance().getOcrFolder();
             api = new TessBaseAPI();
+            
+            setlocale(LC_ALL(), "C");
 
             // Init API with proper language
-            if (api.Init(ocrFolder.toString(), lang) != 0) {
+            if (api.Init(ocrFolder.toString(), lang, engineMode) != 0) {
                 logger.warn("Could not initialize Tesseract with lang {}", lang);
 
                 return finish(null);
