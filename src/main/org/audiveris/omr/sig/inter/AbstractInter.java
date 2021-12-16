@@ -1331,8 +1331,9 @@ public abstract class AbstractInter
                 final SystemInfo system = sig.getSystem();
                 final Step step = system.getSheet().getStub().getLatestStep();
 
-                if (step != null && step.compareTo(Step.CURVES) >= 0) {
-                    system.addFreeGlyph(glyph);
+// commenting out allows CURVES step to be omitted
+                // if (step != null && step.compareTo(Step.CURVES) >= 0) {
+                //     system.addFreeGlyph(glyph);
                 }
             }
         }
