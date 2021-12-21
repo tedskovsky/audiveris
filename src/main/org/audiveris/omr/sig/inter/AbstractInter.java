@@ -1334,7 +1334,7 @@ public abstract class AbstractInter
 // commenting out allows CURVES step to be omitted
                 // if (step != null && step.compareTo(Step.CURVES) >= 0) {
                 //     system.addFreeGlyph(glyph);
-                }
+//                 }
             }
         }
     }
